@@ -1,0 +1,14 @@
+# Getting data-set.
+FROM buildpack-deps:curl AS env-curl
+RUN wget https://atlas-education.s3.amazonaws.com/sampledata.archive
+
+FROM mongo:6.0.3
+USER root
+
+# Set Workdir.
+RUN mkdir /init
+WORKDIR /init
+
+# Set Entrypoint.
+ADD ./init/entrypoint-node.sh ./entrypoint.sh
+ENTRYPOINT ["bash", "/init/entrypoint.sh"]

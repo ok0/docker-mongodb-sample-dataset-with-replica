@@ -1,14 +1,46 @@
 version: "3.9"
 
 services:
+  mongo-node00:
+    container_name: mongo-node00
+    networks:
+      - mongo-replica-network
+    build:
+      context: ./
+      dockerfile: Dockerfile-node
+    restart: always
+    ports:
+      - 27018:27017
+
+  mongo-node01:
+    container_name: mongo-node01
+    networks:
+      - mongo-replica-network
+    build:
+      context: ./
+      dockerfile: Dockerfile-node
+    restart: always
+    ports:
+      - 27019:27017
+    depends_on:
+      - mongo-node00
+
   mongo-master:
     build:
       context: ./
       dockerfile: Dockerfile-master
     container_name: mongo-master
+    networks:
+      - mongo-replica-network
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
     ports:
       - 27017:27017
+    depends_on:
+      - mongo-node01
+
+networks:
+  mongo-replica-network:
+    driver: bridge
