@@ -17,5 +17,5 @@ COPY --from=env-curl sampledata.archive ./sample
 RUN chown -R mongodb.mongodb /init
 
 # Set Entrypoint.
-ADD ./init/entrypoint.sh ./entrypoint.sh
+ADD ./init/entrypoint-master.sh ./entrypoint.sh
 ENTRYPOINT ["bash", "/init/entrypoint.sh"]
