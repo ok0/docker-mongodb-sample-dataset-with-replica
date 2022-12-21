@@ -30,9 +30,12 @@ bash replica-setup.sh
 
 ### on MAC
 
+> https://docs.docker.com/docker-for-mac/networking/#per-container-ip-addressing-is-not-possible
+
 ```shell
 vi /etc/hosts
-127.0.0.1   mongo-master mongo-node00 mongo-node01
+#Add
+#127.0.0.1   mongo-master mongo-node00 mongo-node01
 ```
 
 ### URI
